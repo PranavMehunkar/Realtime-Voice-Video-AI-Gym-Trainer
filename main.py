@@ -71,7 +71,7 @@ def main():
             
             st.markdown("")
             
-            start_session_button=st.button("Start Workout",width="stretch",key="start_session_button")
+            start_session_button=st.button("Start Workout",use_container_width=True,key="start_session_button")
             
             if start_session_button:
                 st.session_state.exercise_type = plan_exercise

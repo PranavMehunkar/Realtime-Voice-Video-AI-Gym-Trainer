@@ -54,7 +54,7 @@ def main():
                 tts
             )
 
-         except Exception as e:
+        except Exception as e:
             st.error(f"Voice Pipeline Error: {e}")
             print("VOICE PIPELINE ERROR:", e)
             st.session_state.voice_pipeline = None

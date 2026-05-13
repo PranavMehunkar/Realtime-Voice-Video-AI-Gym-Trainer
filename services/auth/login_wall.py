@@ -10,7 +10,7 @@ def render_login_wall():
     
     with st.form("login_form",clear_on_submit=False):
         username=st.text_input("Name (unique)",placeholder="unique name e.g. pranavmehunkar")
-        submit_button=st.form_submit_button("Start Session")
+        submit_button=st.form_submit_button("Start Session",use_container_width=True)
         
     if submit_button:
         if not username:

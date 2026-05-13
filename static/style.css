@@ -179,3 +179,35 @@ div[role="menuitem"] {
   background-color: #181D2A !important;
   color: #fff;
 }
+
+/* =========================================================
+   TEXT INPUT STYLING
+========================================================= */
+
+.stTextInput input {
+  background-color: #181D2A !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0 !important;
+  padding: 0.75rem 1rem !important;
+  font-family: 'AdobeClean', sans-serif !important;
+  box-shadow: none !important;
+}
+
+/* Placeholder */
+.stTextInput input::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Focus state */
+.stTextInput input:focus {
+  border: 1px solid #4CAF50 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Label */
+.stTextInput label {
+  color: #ffffff !important;
+  font-family: 'AdobeClean', sans-serif !important;
+}

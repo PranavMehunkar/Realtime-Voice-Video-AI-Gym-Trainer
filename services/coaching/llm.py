@@ -19,15 +19,11 @@ class LLMCoach:
             {"role": "user", "content": prompt}
         ]
 
-        try:
-            response = self.client.chat.completions.create(
-            model="llama3-8b-8192",
-            messages=messages
+        response = self.client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=messages,
+            temperature=0.4,
         )
-
-        except Exception as e:
-            print("GROQ ERROR:", e)
-            return "AI coaching temporarily unavailable."
 
         text = response.choices[0].message.content.strip()
         self.history.append({"role": "assistant", "content": text})

@@ -179,3 +179,18 @@ div[role="menuitem"] {
   background-color: #181D2A !important;
   color: #fff;
 }
+
+/* FINAL LOGIN FIX */
+
+.stForm {
+    background-color: #181D2A !important;
+}
+
+[data-testid="stTextInput"] {
+    background-color: #181D2A !important;
+}
+
+.stTextInput input {
+    background-color: #000000 !important;
+    color: white !important;
+}

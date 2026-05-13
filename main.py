@@ -35,22 +35,29 @@ def main():
     initial_session_defaults()
     
     if "voice_pipeline" not in st.session_state:
+    try:
         try:
             api_key = st.secrets["GROQ_API_KEY"]
         except:
             api_key = os.getenv("GROQ_API_KEY", "")
-            
-            groq_client = Groq(
-                api_key=api_key,
-                timeout=20
-            )
-            llm_coach = LLMCoach(groq_client)
-            tts = TextToSpeech()
-            st.session_state.voice_pipeline = VoicePipeline(llm_coach, tts)
-        except Exception as e:
-            st.error(f"Voice Pipeline Error: {e}")
-            print("VOICE PIPELINE ERROR:", e)
-            st.session_state.voice_pipeline = None
+
+        groq_client = Groq(
+            api_key=api_key,
+            timeout=20
+        )
+
+        llm_coach = LLMCoach(groq_client)
+        tts = TextToSpeech()
+
+        st.session_state.voice_pipeline = VoicePipeline(
+            llm_coach,
+            tts
+        )
+
+     except Exception as e:
+        st.error(f"Voice Pipeline Error: {e}")
+        print("VOICE PIPELINE ERROR:", e)
+        st.session_state.voice_pipeline = None
             
     workout_started=st.session_state.get("workout_started",False)
     

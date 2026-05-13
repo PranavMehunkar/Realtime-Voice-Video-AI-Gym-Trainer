@@ -207,7 +207,7 @@ def main():
             unsafe_allow_html=True,
         )
     else:
-       context = webrtc_streamer(
+        context = webrtc_streamer(
             key="exercise-analysis",
             mode=WebRtcMode.SENDRECV,
             video_processor_factory=VideoProcessorClass,
@@ -218,9 +218,9 @@ def main():
             async_processing=False
        )
 
-        sync_metrics_update(context)
+       sync_metrics_update(context)
 
-        inject_webrtc_styles()
+       inject_webrtc_styles()
     
     st.divider()
         

@@ -207,24 +207,19 @@ def main():
             unsafe_allow_html=True,
         )
     else:
-        context=webrtc_streamer(
+       context = webrtc_streamer(
             key="exercise-analysis",
             mode=WebRtcMode.SENDRECV,
             video_processor_factory=VideoProcessorClass,
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
             media_stream_constraints={
-                "video":True,
-                "audio":False
+                "video": True,
+                "audio": False
             },
-            async_processing=True
-        )
-        
+            async_processing=False
+       )
+
         sync_metrics_update(context)
-        
-        if context.state.playing:
-            time.sleep(0.25)
-            st.rerun()
-            
+
         inject_webrtc_styles()
     
     st.divider()

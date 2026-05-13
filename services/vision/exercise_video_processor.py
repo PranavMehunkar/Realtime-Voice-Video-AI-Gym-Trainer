@@ -1,5 +1,12 @@
 import os
-import cv2
+try:
+    import cv2
+    print("CV2 VERSION:", cv2.__version__)
+except Exception as e:
+    import traceback
+    print("CV2 IMPORT FAILED")
+    traceback.print_exc()
+    raise e
 import av
 import numpy as np
 import mediapipe as mp

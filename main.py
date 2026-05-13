@@ -248,7 +248,7 @@ def main():
                 "Time (sec)":"sum"
             }).reset_index()
             agg_df.index+=1
-            st.dataframe(agg_df)
+            st.table(agg_df, border="horizontal")
         else:
             st.info("No workout history found.")
         

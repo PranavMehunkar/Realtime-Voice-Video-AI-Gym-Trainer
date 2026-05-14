@@ -37,23 +37,23 @@ def main():
 
     if "voice_pipeline" not in st.session_state:
 
-    api_key = ""
+      api_key = ""
 
-    try:
+      try:
         api_key = st.secrets["GROQ_API_KEY"]
         st.success("Loaded from Streamlit secrets")
 
-    except Exception as e:
+      except Exception as e:
         st.error(f"Secrets error: {e}")
 
-    st.write("KEY EXISTS:", bool(api_key))
+      st.write("KEY EXISTS:", bool(api_key))
 
-    if api_key:
+      if api_key:
         st.write("FIRST 10:", api_key[:10])
-    else:
+      else:
         st.stop()
 
-    try:
+      try:
         groq_client = Groq(api_key=api_key)
 
         llm_coach = LLMCoach(groq_client)
@@ -67,7 +67,7 @@ def main():
 
         st.success("Voice pipeline initialized")
 
-    except Exception as e:
+      except Exception as e:
         st.error(f"Groq Init Error: {e}")
         st.session_state.voice_pipeline = None
 

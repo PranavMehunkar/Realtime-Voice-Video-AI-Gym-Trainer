@@ -209,9 +209,9 @@ def main():
             async_processing=True
         )
 
-        sync_metrics_update(context)
+       sync_metrics_update(context)
       
-        if context.state.playing:
+       if context.state.playing:
             time.sleep(0.25)
             st.rerun()
 

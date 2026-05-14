@@ -1,8 +1,11 @@
 from groq import APIConnectionError
 
 class LLMCoach:
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, groq_client):
+        self.client = groq_client
+        self.history = []
+        self.system_prompt = PROMPT
+
 
     def give_feedback(self, event, issue):
         prompt = f"Event: {event}"

@@ -30,13 +30,13 @@ class LLMCoach:
             return response.choices[0].message.content
 
         except Exception as e:
-        print("GROQ API ERROR:", e)
+            print("GROQ API ERROR:", e)
 
-        # fallback response
-        if event == "workout_started":
-            return "Workout started. Stay focused and keep your form correct."
+            # fallback response
+            if event == "workout_started":
+                return "Workout started. Stay focused and keep your form correct."
 
-        elif event == "workout_completed":
-            return "Great workout session. Recovery is important too."
+            elif event == "workout_completed":
+                return "Great workout session. Recovery is important too."
 
-        return "Keep going. Maintain proper posture and breathing."
+            return "Keep going. Maintain proper posture and breathing."

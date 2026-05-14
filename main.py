@@ -42,7 +42,11 @@ def main():
             if not api_key and hasattr(st, "secrets") and "GROQ_API_KEY" in st.secrets:
                 api_key = st.secrets["GROQ_API_KEY"]
             
-            groq_client = Groq(api_key=api_key)
+            groq_client = Groq(
+              api_key=api_key,
+              timeout=60,
+              max_retries=2
+            )
             llm_coach = LLMCoach(groq_client)
             tts = TextToSpeech()
             st.session_state.voice_pipeline = VoicePipeline(llm_coach, tts)

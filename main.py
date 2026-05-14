@@ -36,26 +36,40 @@ def main():
     initial_session_defaults()
 
     if "voice_pipeline" not in st.session_state:
-      api_key = ""
-      try:
+
+    api_key = ""
+
+    try:
         api_key = st.secrets["GROQ_API_KEY"]
         st.success("Loaded from Streamlit secrets")
-      except Exception as e:
+
+    except Exception as e:
         st.error(f"Secrets error: {e}")
 
-      st.write("KEY EXISTS:", bool(api_key))
+    st.write("KEY EXISTS:", bool(api_key))
 
-      if api_key:
+    if api_key:
         st.write("FIRST 10:", api_key[:10])
-      else:
+    else:
         st.stop()
-        
-            groq_client = Groq(api_key=api_key)
-            llm_coach = LLMCoach(groq_client)
-            tts = TextToSpeech()
-            st.session_state.voice_pipeline = VoicePipeline(llm_coach, tts)
-        except Exception as e:
-            st.session_state.voice_pipeline = None
+
+    try:
+        groq_client = Groq(api_key=api_key)
+
+        llm_coach = LLMCoach(groq_client)
+
+        tts = TextToSpeech()
+
+        st.session_state.voice_pipeline = VoicePipeline(
+            llm_coach,
+            tts
+        )
+
+        st.success("Voice pipeline initialized")
+
+    except Exception as e:
+        st.error(f"Groq Init Error: {e}")
+        st.session_state.voice_pipeline = None
 
     workout_started = st.session_state.get("workout_started", False)
     

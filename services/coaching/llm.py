@@ -1,4 +1,4 @@
-from groq import APIConnectionError
+from services.config.workout_config import PROMPT
 
 class LLMCoach:
     def __init__(self, groq_client):

@@ -15,7 +15,7 @@ class LLMCoach:
         Event: {event}
         Issue: {issue}
 
-        Give short motivational coaching feedback.
+        Give short motivational feedback.
         """
 
         try:
@@ -31,9 +31,14 @@ class LLMCoach:
                 max_tokens=60
             )
 
-            return response.choices[0].message.content
+            print("GROQ RESPONSE:", response)
+
+            text = response.choices[0].message.content
+
+            print("LLM TEXT:", text)
+
+            return text
 
         except Exception as e:
-            print("Groq Error:", e)
-            return "Keep going! You're doing great."
-        
+            print("FULL GROQ ERROR:", str(e))
+            return f"ERROR: {str(e)}"

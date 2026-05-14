@@ -49,6 +49,7 @@ def main():
         st.write("FIRST 10:", api_key[:10])
       else:
         st.stop()
+        
             groq_client = Groq(api_key=api_key)
             llm_coach = LLMCoach(groq_client)
             tts = TextToSpeech()

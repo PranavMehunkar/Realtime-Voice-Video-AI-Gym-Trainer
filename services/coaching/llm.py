@@ -7,7 +7,7 @@ class LLMCoach:
         self.history = []
         self.system_prompt = PROMPT
 
-     def give_feedback(self, event, issue):
+    def give_feedback(self, event, issue):
         prompt = f"Event: {event}"
 
         if issue:

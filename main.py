@@ -40,12 +40,8 @@ def main():
             api_key = os.environ.get("GROQ_API_KEY", "")
 
             if not api_key and hasattr(st, "secrets") and "GROQ_API_KEY" in st.secrets:
-                api_key = st.secrets.get("GROQ_API_KEY", "")
-            
-            if not api_key:
-              st.error("Groq API Key missing.")
-              st.stop()
-
+                api_key = st.secrets["GROQ_API_KEY"]
+              
             groq_client = Groq(api_key=api_key)
             llm_coach = LLMCoach(groq_client)
             tts = TextToSpeech()

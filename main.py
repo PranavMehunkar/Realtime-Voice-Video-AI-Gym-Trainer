@@ -215,7 +215,7 @@ def main():
             time.sleep(0.25)
             st.rerun()
 
-        inject_webrtc_styles()
+       inject_webrtc_styles()
 
     st.divider()
 

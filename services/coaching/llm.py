@@ -5,35 +5,25 @@ class LLMCoach:
         self.client = client
 
     def give_feedback(self, event, issue):
+        prompt = f"Event: {event}"
 
-        prompt = f"""
-        Workout Event: {event}
-        Issue: {issue}
+        if issue:
+            prompt += f" Form Issue: {issue}"
 
-        Give short motivating gym feedback.
-        """
+        messages = [
+            {"role": "system", "content": self.system_prompt},
+            *self.history[-10:],
+            {"role": "user", "content": prompt}
+        ]
 
-        try:
-            response = self.client.chat.completions.create(
-                model="llama3-8b-8192",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ],
-                temperature=0.7,
-                max_tokens=50
-            )
+        response = self.client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=messages,
+            temperature=0.4,
+        )
 
-            print("GROQ RESPONSE:", response)
+        text = response.choices[0].message.content.strip()
+        self.history.append({"role": "assistant", "content": text})
 
-            return response.choices[0].message.content
-
-        except Exception as e:
-            import traceback
-
-            print("FULL GROQ ERROR:")
-            traceback.print_exc()
-
-            return f"ERROR: {str(e)}"
+        return text
+    

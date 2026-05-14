@@ -26,12 +26,14 @@ class LLMCoach:
                 max_tokens=50
             )
 
+            print("GROQ RESPONSE:", response)
+
             return response.choices[0].message.content
 
-        except APIConnectionError as e:
-            print("GROQ CONNECTION ERROR:", e)
-            return "Great work! Stay focused and keep your posture correct."
-
         except Exception as e:
-            print("GROQ GENERAL ERROR:", e)
-            return "Keep pushing! You're doing well."
+            import traceback
+
+            print("FULL GROQ ERROR:")
+            traceback.print_exc()
+
+            return f"ERROR: {str(e)}"

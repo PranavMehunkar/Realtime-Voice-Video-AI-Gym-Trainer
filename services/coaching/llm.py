@@ -1,32 +1,37 @@
-from services.config.workout_config import PROMPT
-
+from groq import APIConnectionError
 
 class LLMCoach:
-    def __init__(self, groq_client):
-        self.client = groq_client
-        self.history = []
-        self.system_prompt = PROMPT
+    def __init__(self, client):
+        self.client = client
 
     def give_feedback(self, event, issue):
-        prompt = f"Event: {event}"
 
-        if issue:
-            prompt += f" Form Issue: {issue}"
+        prompt = f"""
+        Workout Event: {event}
+        Issue: {issue}
 
-        messages = [
-            {"role": "system", "content": self.system_prompt},
-            *self.history[-10:],
-            {"role": "user", "content": prompt}
-        ]
+        Give short motivating gym feedback.
+        """
 
-        response = self.client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=messages,
-            temperature=0.4,
-        )
+        try:
+            response = self.client.chat.completions.create(
+                model="llama3-8b-8192",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                temperature=0.7,
+                max_tokens=50
+            )
 
-        text = response.choices[0].message.content.strip()
-        self.history.append({"role": "assistant", "content": text})
+            return response.choices[0].message.content
 
-        return text
-    
+        except APIConnectionError as e:
+            print("GROQ CONNECTION ERROR:", e)
+            return "Great work! Stay focused and keep your posture correct."
+
+        except Exception as e:
+            print("GROQ GENERAL ERROR:", e)
+            return "Keep pushing! You're doing well."

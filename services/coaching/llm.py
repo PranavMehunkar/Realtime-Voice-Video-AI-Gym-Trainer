@@ -8,35 +8,25 @@ class LLMCoach:
         self.system_prompt = PROMPT
 
     def give_feedback(self, event, issue):
+        prompt = f"Event: {event}"
+
+        if issue:
+            prompt += f" Form Issue: {issue}"
+
         messages = [
-            {
-                "role": "system",
-                "content": "You are a motivational AI gym coach."
-            },
-            {
-                "role": "user",
-                "content": f"Workout event: {event}. Issue: {issue}"
-            }
+            {"role": "system", "content": self.system_prompt},
+            *self.history[-10:],
+            {"role": "user", "content": prompt}
         ]
 
-        try:
-            response = self.client.chat.completions.create(
-                model="llama3-8b-8192",
-                messages=messages,
-                temperature=0.7,
-                max_tokens=60
-            )
+        response = self.client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=messages,
+            temperature=0.4,
+        )
 
-            return response.choices[0].message.content
+        text = response.choices[0].message.content.strip()
+        self.history.append({"role": "assistant", "content": text})
 
-        except Exception as e:
-            print("GROQ API ERROR:", e)
-
-            # fallback response
-            if event == "workout_started":
-                return "Workout started. Stay focused and keep your form correct."
-
-            elif event == "workout_completed":
-                return "Great workout session. Recovery is important too."
-
-            return "Keep going. Maintain proper posture and breathing."
+        return text
+    

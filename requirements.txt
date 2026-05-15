@@ -4,7 +4,7 @@ opencv-python-headless==4.10.0.84
 mediapipe==0.10.9
 numpy==1.26.4
 pandas==2.2.1
-groq>=0.12.0
+groq==0.18.0
 gtts==2.5.3
 python-dotenv==1.2.2
 httpx==0.27.2

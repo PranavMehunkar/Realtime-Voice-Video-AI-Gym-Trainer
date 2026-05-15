@@ -39,6 +39,6 @@ class LLMCoach:
             return response.choices[0].message.content.strip()
 
         except Exception as e:
-            return f"API Error: {str(e)}"
+            return "Let's move, give me your best effort now."
 
         

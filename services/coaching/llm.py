@@ -1,27 +1,33 @@
-from services.config.workout_config import PROMPT
+from groq import Groq
+import traceback
 
 class LLMCoach:
-    def __init__(self, groq_client):
-        self.client = groq_client
-        self.history = []
-        self.system_prompt = PROMPT
+    def __init__(self, client):
+        self.client = client
 
+        self.system_prompt = """
+        You are a professional AI gym trainer.
+        Give short, motivational, human-like workout coaching feedback.
+        Keep responses under 2 sentences.
+        """
 
     def give_feedback(self, event, issue):
 
         prompt = f"""
-        You are an AI gym coach.
-
         Event: {event}
         Issue: {issue}
 
-        Give short motivational coaching feedback.
+        Give coaching feedback.
         """
 
         try:
             response = self.client.chat.completions.create(
                 model="llama3-8b-8192",
                 messages=[
+                    {
+                        "role": "system",
+                        "content": self.system_prompt
+                    },
                     {
                         "role": "user",
                         "content": prompt
@@ -36,4 +42,4 @@ class LLMCoach:
         except Exception as e:
             traceback.print_exc()
 
-            return "Let's move, give me your best effort now."
+            return "Keep going! Focus on proper form and breathing."

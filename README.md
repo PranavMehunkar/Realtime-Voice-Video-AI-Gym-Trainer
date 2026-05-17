@@ -14,6 +14,7 @@ This is an AI Real-time Gym Coach that uses computer vision and AI voice feedbac
 <h3>Frontend</h3>
 <li>HTML</li>
 <li>CSS</li>
+<li>Streamlit</li>
 <h3>Database</h3>
 <li>SQLite</li>
 <h3>Deployment</h3>
